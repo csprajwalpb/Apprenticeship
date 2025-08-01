@@ -1,4 +1,4 @@
 ***CBA Apprenticeship***
 
-Work Logs @CBA
+Work Logs **@CBA**
 
