@@ -1,0 +1,11 @@
+name = input("Enter your name: ")
+books_borrowed = int(input("Enter number of books borrowed: "))
+
+print("\n" + "="*40)
+print("        Library Receipt        ")
+print("="*40)
+print(f"Name: {name}")
+print(f"Number of Books Borrowed: {books_borrowed}")
+print("-"*40)
+print("Thank you for using our library!")
+print("-"*40)
