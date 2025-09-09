@@ -1,0 +1,21 @@
+patient_id,name,age,gender,disease
+001,Aarav ,27,M,Malaria
+002,Vivek,34,M,Dengue
+003,Yashasvi,26,F,Brain Cancer
+004,Vansh,21,M,Heart attack
+005,Anvitha,31,F,Ulcer
+006,Diya,31,F,Asthma
+007,Reyansh,28,M,Hypertension
+008,Myra,33,F,Arthritis
+009,Krishna,30,M,Cholera
+010,Anika,25,F,Flu
+011,Aditya,32,M,Tuberculosis
+012,Kiara,24,F,Pneumonia
+013,Arjun,35,M,Hepatitis
+014,Meera,27,F,Ulcer
+015,Rohan,29,M,Obesity
+016,Saanvi,26,F,Anemia
+017,Dev,31,M,Epilepsy
+018,Anvi,28,F,Allergy
+019,Shivansh,34,M,Stroke
+020,Prisha,30,F,Thyroid Disorder002
