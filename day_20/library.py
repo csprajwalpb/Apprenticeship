@@ -58,7 +58,6 @@ def update_book():
             return
     print("\n Book not found.\n")
 
-
 def delete_book():
     book_id = input("Enter Book ID to Delete: ")
     for b in books:
