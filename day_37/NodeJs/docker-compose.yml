@@ -1,0 +1,59 @@
+version: '3.8'
+
+services:
+  # Node.js Application
+  nodejs-app:
+    build:
+      context: ./nodejs
+      dockerfile: Dockerfile
+    container_name: nodejs-app
+    ports:
+      - "3000:3000"
+    environment:
+      - NODE_ENV=production
+      - MYSQL_HOST=mysql
+      - MYSQL_PORT=3306
+      - MYSQL_DATABASE=nodedb
+      - MYSQL_USER=nodeuser
+      - MYSQL_PASSWORD=nodepass
+    depends_on:
+      - mysql
+    networks:
+      - nodejs-network
+
+  # MySQL Database for Node.js
+  mysql:
+    image: mysql:8.0
+    container_name: nodejs-mysql
+    ports:
+      - "3308:3306"
+    environment:
+      - MYSQL_ROOT_PASSWORD=rootpassword
+      - MYSQL_DATABASE=nodedb
+      - MYSQL_USER=nodeuser
+      - MYSQL_PASSWORD=nodepass
+    volumes:
+      - nodejs_mysql_data:/var/lib/mysql
+      - ./database/init:/docker-entrypoint-initdb.d
+    networks:
+      - nodejs-network
+
+  # Nginx for Node.js (optional)
+  nginx:
+    image: nginx:alpine
+    container_name: nodejs-nginx
+    ports:
+      - "3001:80"
+    volumes:
+      - ./proxy/nginx-nodejs.conf:/etc/nginx/nginx.conf
+    depends_on:
+      - nodejs-app
+    networks:
+      - nodejs-network
+
+volumes:
+  nodejs_mysql_data:
+
+networks:
+  nodejs-network:
+    driver: bridge
