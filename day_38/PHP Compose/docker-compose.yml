@@ -1,0 +1,58 @@
+version: '3.8'
+
+services:
+  # PHP Application
+  php-app:
+    build:
+      context: ./php
+      dockerfile: Dockerfile
+    container_name: php-app
+    ports:
+      - "8000:80"
+    environment:
+      - MYSQL_HOST=mysql
+      - MYSQL_PORT=3306
+      - MYSQL_DATABASE=phpdb
+      - MYSQL_USER=phpuser
+      - MYSQL_PASSWORD=phppass
+    depends_on:
+      - mysql
+    networks:
+      - php-network
+
+  # MySQL Database for PHP
+  mysql:
+    image: mysql:8.0
+    container_name: php-mysql
+    ports:
+      - "3307:3306"
+    environment:
+      - MYSQL_ROOT_PASSWORD=rootpassword
+      - MYSQL_DATABASE=phpdb
+      - MYSQL_USER=phpuser
+      - MYSQL_PASSWORD=phppass
+    volumes:
+      - php_mysql_data:/var/lib/mysql
+      - ./database/init:/docker-entrypoint-initdb.d
+    networks:
+      - php-network
+
+  # Nginx for PHP (optional)
+  nginx:
+    image: nginx:alpine
+    container_name: php-nginx
+    ports:
+      - "8001:80"
+    volumes:
+      - ./proxy/nginx-php.conf:/etc/nginx/nginx.conf
+    depends_on:
+      - php-app
+    networks:
+      - php-network
+
+volumes:
+  php_mysql_data:
+
+networks:
+  php-network:
+    driver: bridge
